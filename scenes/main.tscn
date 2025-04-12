@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhfme4jtr7hxm"]
+
+[ext_resource type="Script" uid="uid://blukyxbov3cah" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://bq38ld4mhr5ia" path="res://scenes/error_window.tscn" id="2_0wfyh"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o5qli")
+error_window_scene = ExtResource("2_0wfyh")
+
+[node name="WindowSpawnDelay" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="SpawnArea" type="ReferenceRect" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 960.0
+offset_bottom = 512.0
+border_color = Color(0.0507812, 0.555054, 1, 1)
+border_width = 4.0
+editor_only = false
+
+[connection signal="timeout" from="WindowSpawnDelay" to="." method="_on_window_spawn_delay_timeout"]
