@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhfme4jtr7hxm"]
+[gd_scene load_steps=10 format=3 uid="uid://bhfme4jtr7hxm"]
 
 [ext_resource type="Script" uid="uid://blukyxbov3cah" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://bq38ld4mhr5ia" path="res://scenes/error_window/error_window.tscn" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://dojxsqn2mqxub" path="res://assets/EggOsDefaultWallpaper.png" id="3_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://5r7i1h38ggtr" path="res://assets/egg-os-rekt.png" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://t2pn2cpod3bc" path="res://scenes/file_explorer.tscn" id="3_tipki"]
+[ext_resource type="PackedScene" uid="uid://dibbf0518rqt1" path="res://scenes/software_store.tscn" id="4_85g3d"]
 [ext_resource type="Texture2D" uid="uid://qs0d0i6gckum" path="res://assets/egg-os-rekt-hovered.png" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://c44lx7uwvcmr3" path="res://assets/egg-os-pressed.png" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://d3rdiyojb2uu4" path="res://icon.svg" id="6_tefeu"]
@@ -19,6 +20,7 @@ grow_vertical = 2
 script = ExtResource("1_o5qli")
 error_window_scene = ExtResource("2_0wfyh")
 file_explorer_scene = ExtResource("3_tipki")
+software_store_scene = ExtResource("4_85g3d")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -33,6 +35,10 @@ stretch_mode = 5
 
 [node name="WindowSpawnDelay" type="Timer" parent="."]
 wait_time = 2.0
+autostart = true
+
+[node name="AutocloseDelay" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="SpawnArea" type="ReferenceRect" parent="."]
@@ -103,5 +109,12 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
+[node name="VirusPopups" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="timeout" from="WindowSpawnDelay" to="." method="_on_window_spawn_delay_timeout"]
+[connection signal="timeout" from="AutocloseDelay" to="." method="_on_autoclose_delay_timeout"]
 [connection signal="pressed" from="DesktopItems/FileExplorer" to="." method="_on_file_explorer_pressed"]
+[connection signal="pressed" from="DesktopItems/SoftwareStore" to="." method="_on_software_store_pressed"]
