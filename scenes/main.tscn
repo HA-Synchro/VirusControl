@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhfme4jtr7hxm"]
+[gd_scene load_steps=6 format=3 uid="uid://bhfme4jtr7hxm"]
 
 [ext_resource type="Script" uid="uid://blukyxbov3cah" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://bq38ld4mhr5ia" path="res://scenes/error_window.tscn" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://5r7i1h38ggtr" path="res://assets/egg-os-rekt.png" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://qs0d0i6gckum" path="res://assets/egg-os-rekt-hovered.png" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://c44lx7uwvcmr3" path="res://assets/egg-os-pressed.png" id="4_tbgi4"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -26,5 +29,36 @@ offset_bottom = 512.0
 border_color = Color(0.0507812, 0.555054, 1, 1)
 border_width = 4.0
 editor_only = false
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureButton" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_right = 281.0
+grow_vertical = 0
+texture_normal = ExtResource("3_sugp2")
+texture_pressed = ExtResource("4_tbgi4")
+texture_hover = ExtResource("4_jyhfs")
+texture_focused = ExtResource("3_sugp2")
 
 [connection signal="timeout" from="WindowSpawnDelay" to="." method="_on_window_spawn_delay_timeout"]
