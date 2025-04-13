@@ -24,7 +24,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
-text = "Your pc got virus!"
+text = "Your pc got skill issue!"
 
 [node name="Button" type="Button" parent="PanelContainer/CenterContainer"]
 layout_mode = 2

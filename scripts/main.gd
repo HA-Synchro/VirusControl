@@ -5,8 +5,8 @@ extends Control
 
 func create_new_window() -> void:
 	var error_window_instance = error_window_scene.instantiate()
-	var random_position_x = randi_range(spawn_area.pivot_offset.x, spawn_area.size.x)
-	var random_position_y = randi_range(spawn_area.pivot_offset.y, spawn_area.size.y)
+	var random_position_x = randf_range(spawn_area.pivot_offset.x, spawn_area.size.x)
+	var random_position_y = randf_range(spawn_area.pivot_offset.y, spawn_area.size.y)
 	error_window_instance.position = Vector2(random_position_x, random_position_y)
 	add_child(error_window_instance)
 
