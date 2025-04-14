@@ -6,3 +6,6 @@ func _on_close_requested() -> void:
 	tween.tween_property(self, "size", Vector2i.ZERO, 0.1)
 	await tween.finished
 	self.queue_free()
+
+func on_item_clicked(index: int, property: String) -> void:
+	Global[property] = not Global[property]

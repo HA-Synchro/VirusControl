@@ -4,21 +4,26 @@ extends Control
 @export var file_explorer_scene: PackedScene
 @export var software_store_scene: PackedScene
 
-@export var autoclose_activated: bool = false
+var can_spawn_virus: bool = true
 
 @onready var spawn_area: ReferenceRect = $SpawnArea
 @onready var virus_popups: Control = $VirusPopups
 @onready var autoclose_delay: Timer = $AutocloseDelay
+@onready var score_label: Label = $ScoreLabel
+
+func _process(delta: float) -> void:
+	score_label.text = "Score: %d pts" % Global.score
 
 func create_new_window() -> void:
-	var error_window_instance: Window = error_window_scene.instantiate()
-	error_window_instance.size = Vector2.ZERO
-	var random_position_x = randf_range(spawn_area.pivot_offset.x, spawn_area.size.x)
-	var random_position_y = randf_range(spawn_area.pivot_offset.y, spawn_area.size.y)
-	var tween = create_tween()
-	tween.tween_property(error_window_instance, "size", Vector2i(400, 150), 0.1)
-	error_window_instance.position = Vector2(random_position_x, random_position_y)
-	virus_popups.add_child(error_window_instance)
+	if not Global.antivirus_activated:
+		var error_window_instance: Window = error_window_scene.instantiate()
+		error_window_instance.size = Vector2.ZERO
+		var random_position_x = randf_range(spawn_area.pivot_offset.x, spawn_area.size.x)
+		var random_position_y = randf_range(spawn_area.pivot_offset.y, spawn_area.size.y)
+		var tween = create_tween()
+		tween.tween_property(error_window_instance, "size", Vector2i(400, 150), 0.1)
+		error_window_instance.position = Vector2(random_position_x, random_position_y)
+		virus_popups.add_child(error_window_instance)
 
 func remove_popups_automatically() -> void:
 	if virus_popups.get_child_count() > 0:
@@ -44,6 +49,6 @@ func _on_software_store_pressed() -> void:
 	add_child(software_store_instance)
 
 func _on_autoclose_delay_timeout() -> void:
-	if autoclose_activated:
+	if Global.autoclose_ability_activated:
 		if virus_popups.get_child_count() > 0:
 			virus_popups.get_child(0).close_window()

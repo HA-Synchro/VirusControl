@@ -7,6 +7,7 @@ func _ready() -> void:
 	label.text = error_messages.pick_random()
 
 func close_window() -> void:
+	Global.increase_score(5)
 	var tween = create_tween()
 	tween.tween_property(self, "size", Vector2i.ZERO, 0.1)
 	await tween.finished

@@ -21,16 +21,19 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 6
 
-[node name="ShopItem" type="Button" parent="PanelContainer/GridContainer"]
+[node name="Antivirus" type="Button" parent="PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 text = "Antivirus
-(5 Pts)"
+(50 Pts)"
 
-[node name="ShopItem2" type="Button" parent="PanelContainer/GridContainer"]
+[node name="PopupCloser" type="Button" parent="PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-text = "Autocloser
-(5 Pts)"
+text = "Auto 
+popup closer
+(50 Pts)"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="PanelContainer/GridContainer/Antivirus" to="." method="on_item_clicked" binds= [0, "antivirus_activated"]]
+[connection signal="pressed" from="PanelContainer/GridContainer/PopupCloser" to="." method="on_item_clicked" binds= [1, "autoclose_ability_activated"]]

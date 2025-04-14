@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhfme4jtr7hxm"]
+[gd_scene load_steps=11 format=3 uid="uid://bhfme4jtr7hxm"]
 
 [ext_resource type="Script" uid="uid://blukyxbov3cah" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://bq38ld4mhr5ia" path="res://scenes/error_window/error_window.tscn" id="2_0wfyh"]
@@ -9,6 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://qs0d0i6gckum" path="res://assets/egg-os-rekt-hovered.png" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://c44lx7uwvcmr3" path="res://assets/egg-os-pressed.png" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://d3rdiyojb2uu4" path="res://icon.svg" id="6_tefeu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
+font_size = 51
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -42,12 +47,18 @@ wait_time = 0.5
 autostart = true
 
 [node name="SpawnArea" type="ReferenceRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 256.0
-offset_top = 192.0
-offset_right = 832.0
-offset_bottom = 448.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -128.0
+offset_right = 288.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
 border_color = Color(0.0507812, 0.555054, 1, 1)
 border_width = 4.0
 
@@ -113,6 +124,19 @@ expand_icon = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -319.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 78.0
+grow_horizontal = 0
+text = "Score: 00 pts"
+label_settings = SubResource("LabelSettings_85g3d")
 
 [connection signal="timeout" from="WindowSpawnDelay" to="." method="_on_window_spawn_delay_timeout"]
 [connection signal="timeout" from="AutocloseDelay" to="." method="_on_autoclose_delay_timeout"]
