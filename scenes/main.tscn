@@ -41,6 +41,7 @@ stretch_mode = 5
 
 [node name="WindowSpawnDelay" type="Timer" parent="."]
 wait_time = 2.0
+autostart = true
 
 [node name="AutocloseDelay" type="Timer" parent="."]
 wait_time = 0.5
