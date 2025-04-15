@@ -26,8 +26,9 @@ alignment = 1
 layout_mode = 2
 text = "Your pc got skill issue!"
 
-[node name="Button" type="Button" parent="PanelContainer/CenterContainer"]
+[node name="FixButton" type="Button" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
 text = "Fix"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/FixButton" to="." method="_on_fix_button_pressed"]

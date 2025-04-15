@@ -1,4 +1,5 @@
 extends Control
+class_name DesktopEnvironment
 
 @export var error_window_scene: PackedScene
 @export var file_explorer_scene: PackedScene
@@ -16,7 +17,8 @@ func _process(delta: float) -> void:
 
 func create_new_window() -> void:
 	if not Global.antivirus_activated:
-		var error_window_instance: Window = error_window_scene.instantiate()
+		var error_window_instance: ErrorWindow = error_window_scene.instantiate()
+		error_window_instance.desktop_env = self
 		error_window_instance.size = Vector2.ZERO
 		var random_position_x = randf_range(spawn_area.pivot_offset.x, spawn_area.size.x)
 		var random_position_y = randf_range(spawn_area.pivot_offset.y, spawn_area.size.y)
