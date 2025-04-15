@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://orybdq13cqo1"
-path="res://.godot/imported/join_the_revloution.png-db26f134aac8906e7d50de757ba236aa.ctex"
+uid="uid://bvywnidsapxcb"
+path="res://.godot/imported/arch.png-45d64dbc6382b8ecb2a9811f8143b72a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ad_window/assets/join_the_revloution.png"
-dest_files=["res://.godot/imported/join_the_revloution.png-db26f134aac8906e7d50de757ba236aa.ctex"]
+source_file="res://scenes/ad_window/images/arch.png"
+dest_files=["res://.godot/imported/arch.png-45d64dbc6382b8ecb2a9811f8143b72a.ctex"]
 
 [params]
 

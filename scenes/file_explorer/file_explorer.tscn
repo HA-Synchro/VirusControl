@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://t2pn2cpod3bc"]
+
+[ext_resource type="Script" uid="uid://dkohr6ruhcrd0" path="res://scenes/file_explorer/file_explorer.gd" id="1_ks2b6"]
+[ext_resource type="Resource" uid="uid://boag0yytgn8w8" path="res://utils/resources/FileSystemData.tres" id="2_rupmg"]
+
+[node name="FileExplorer" type="Window" node_paths=PackedStringArray("grid_container", "path_label")]
+title = "File Explorer"
+position = Vector2i(133, 111)
+size = Vector2i(885, 425)
+script = ExtResource("1_ks2b6")
+filesystem = ExtResource("2_rupmg")
+grid_container = NodePath("HSplitContainer/MainExplorer/VBoxContainer/GridContainer")
+path_label = NodePath("HSplitContainer/MainExplorer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/PathLabel")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sidebar" type="PanelContainer" parent="HSplitContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Sidebar"]
+layout_mode = 2
+
+[node name="Home" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+text = "Home"
+
+[node name="Documents" type="Button" parent="HSplitContainer/Sidebar/VBoxContainer"]
+layout_mode = 2
+text = "Documents"
+
+[node name="MainExplorer" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MainExplorer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/MainExplorer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/MainExplorer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/MainExplorer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PathLabel" type="Label" parent="HSplitContainer/MainExplorer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Path goes here"
+
+[node name="BackButton" type="Button" parent="HSplitContainer/MainExplorer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "<-"
+
+[node name="GridContainer" type="GridContainer" parent="HSplitContainer/MainExplorer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="HSplitContainer/Sidebar/VBoxContainer/Home" to="." method="_on_home_pressed"]
+[connection signal="pressed" from="HSplitContainer/MainExplorer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

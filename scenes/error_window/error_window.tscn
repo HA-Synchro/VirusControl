@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bq38ld4mhr5ia"]
 
-[ext_resource type="Script" uid="uid://cucp7hyrmeowe" path="res://error_window/error_window.gd" id="1_vjlid"]
+[ext_resource type="Script" uid="uid://cucp7hyrmeowe" path="res://scenes/error_window/error_window.gd" id="1_vjlid"]
 
 [node name="ErrorWindow" type="Window"]
 title = "Warning"
