@@ -1,12 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://60p30npm6kti"]
+[gd_scene load_steps=9 format=3 uid="uid://60p30npm6kti"]
 
 [ext_resource type="Script" uid="uid://cs741ecyhf2rf" path="res://ad_window/ad_window.gd" id="1_wfamw"]
+[ext_resource type="Script" uid="uid://dgvf657jcu8kr" path="res://ad_window/ad_resource.gd" id="2_7wedu"]
+[ext_resource type="Texture2D" uid="uid://iixwmp2ecpd7" path="res://ad_window/assets/cat.jpg" id="2_y3o4a"]
+[ext_resource type="Texture2D" uid="uid://8577dpvsyg5w" path="res://ad_window/assets/TVP.png" id="4_t7k7s"]
+[ext_resource type="Texture2D" uid="uid://bvywnidsapxcb" path="res://ad_window/assets/arch.png" id="5_ssnec"]
+
+[sub_resource type="Resource" id="Resource_7wedu"]
+script = ExtResource("2_7wedu")
+url = "https://duckduckgo.com/"
+img = ExtResource("2_y3o4a")
+label_text = "Get free cat"
+metadata/_custom_type_script = "uid://dgvf657jcu8kr"
+
+[sub_resource type="Resource" id="Resource_t7k7s"]
+script = ExtResource("2_7wedu")
+url = "https://store.steampowered.com/app/2681270/The_Void_Project/"
+img = ExtResource("4_t7k7s")
+label_text = "Play cool games ?"
+metadata/_custom_type_script = "uid://dgvf657jcu8kr"
+
+[sub_resource type="Resource" id="Resource_ssnec"]
+script = ExtResource("2_7wedu")
+url = "https://wiki.archlinux.org/title/Installation_guide"
+img = ExtResource("5_ssnec")
+label_text = "TRY ARCH LINUX!!"
+metadata/_custom_type_script = "uid://dgvf657jcu8kr"
 
 [node name="AdWindow" type="Window"]
-title = "Warning"
+title = "Only for u <3"
 position = Vector2i(0, 36)
-size = Vector2i(400, 150)
+size = Vector2i(400, 300)
 script = ExtResource("1_wfamw")
+ad_array = Array[ExtResource("2_7wedu")]([SubResource("Resource_7wedu"), SubResource("Resource_t7k7s"), SubResource("Resource_ssnec")])
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -14,6 +40,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_y3o4a")
 
 [node name="CenterContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -23,11 +53,12 @@ alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
-text = "Your pc got skill issue!"
+text = "Get free CAT :D"
 
-[node name="FixButton" type="Button" parent="PanelContainer/CenterContainer"]
+[node name="GetButton" type="Button" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
-text = "Fix"
+text = "Get
+"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/FixButton" to="." method="_on_fix_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/GetButton" to="." method="_on_get_button_pressed"]
