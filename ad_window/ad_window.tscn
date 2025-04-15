@@ -1,13 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq38ld4mhr5ia"]
+[gd_scene load_steps=2 format=3 uid="uid://60p30npm6kti"]
 
-[ext_resource type="Script" uid="uid://cucp7hyrmeowe" path="res://scripts/error_window.gd" id="1_vjlid"]
+[ext_resource type="Script" uid="uid://cs741ecyhf2rf" path="res://ad_window/ad_window.gd" id="1_wfamw"]
 
-[node name="ErrorWindow" type="Window"]
+[node name="AdWindow" type="Window"]
 title = "Warning"
 position = Vector2i(0, 36)
 size = Vector2i(400, 150)
-script = ExtResource("1_vjlid")
-error_messages = Array[String](["Warning! Your PC is Infected with Virus!", "Your PC is filled with malware! Attention Needed!", "50 viruses detected, click to fix now!", "Windows detected viruses.", "Malware detected, fix now!", "89 Trackers, 71 worms and 32 infected files found", "PC is in danger.", "Someone might be spying on you.", "PC is corrupted", "Corrupted files found", "SystemFiles32 is not responding", "usr/lib/var32 not found", "Trojan virus found", "FR FR PC COOKED, OHIO"])
+script = ExtResource("1_wfamw")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

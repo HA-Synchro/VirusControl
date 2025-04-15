@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c44lx7uwvcmr3"
-path="res://.godot/imported/egg-os-pressed.png-56ca7c771330d7cbf7df65808c4c5f7e.ctex"
+uid="uid://dojxsqn2mqxub"
+path="res://.godot/imported/EggOsDefaultWallpaper.png-8a4a3fa2aadd6dead0a2c0d6d6140107.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/egg-os-pressed.png"
-dest_files=["res://.godot/imported/egg-os-pressed.png-56ca7c771330d7cbf7df65808c4c5f7e.ctex"]
+source_file="res://scenes/assets/EggOsDefaultWallpaper.png"
+dest_files=["res://.godot/imported/EggOsDefaultWallpaper.png-8a4a3fa2aadd6dead0a2c0d6d6140107.ctex"]
 
 [params]
 

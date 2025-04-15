@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://t2pn2cpod3bc"]
 
-[ext_resource type="Script" uid="uid://dkohr6ruhcrd0" path="res://scripts/file_explorer.gd" id="1_ks2b6"]
+[ext_resource type="Script" uid="uid://dkohr6ruhcrd0" path="res://file_explorer/file_explorer.gd" id="1_ks2b6"]
 
 [node name="FileExplorer" type="Window"]
 title = "File Explorer"

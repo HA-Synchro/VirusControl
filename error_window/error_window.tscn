@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq38ld4mhr5ia"]
+
+[ext_resource type="Script" uid="uid://cucp7hyrmeowe" path="res://error_window/error_window.gd" id="1_vjlid"]
+
+[node name="ErrorWindow" type="Window"]
+title = "Warning"
+position = Vector2i(0, 36)
+size = Vector2i(400, 150)
+script = ExtResource("1_vjlid")
+error_messages = Array[String](["Warning! Your PC is Infected with Virus!", "Your PC is filled with malware! Attention Needed!", "50 viruses detected, click to fix now!", "Windows detected viruses.", "Malware detected, fix now!", "89 Trackers, 71 worms and 32 infected files found", "PC is in danger.", "Someone might be spying on you.", "PC is corrupted", "Corrupted files found", "SystemFiles32 is not responding", "usr/lib/var32 not found", "Trojan virus found", "FR FR PC COOKED, OHIO"])
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+text = "Your pc got skill issue!"
+
+[node name="FixButton" type="Button" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+text = "Fix"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/FixButton" to="." method="_on_fix_button_pressed"]
