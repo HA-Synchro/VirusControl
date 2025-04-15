@@ -1,24 +1,24 @@
 extends Control
 class_name DesktopEnvironment
 
-@export var error_window_scene: PackedScene
-@export var ad_window_scene: PackedScene
+@export var popups: Array[PackedScene]
+
 @export var file_explorer_scene: PackedScene
 @export var software_store_scene: PackedScene
-
-var can_spawn_virus: bool = true
 
 @onready var spawn_area: ReferenceRect = $SpawnArea
 @onready var virus_popups: Control = $VirusPopups
 @onready var autoclose_delay: Timer = $AutocloseDelay
 @onready var score_label: Label = $ScoreLabel
 
+var window_instance: Window
+
 func _process(delta: float) -> void:
 	score_label.text = "Score: %d pts" % Global.score
 
 func create_new_window() -> void:
 	if not Global.antivirus_activated:
-		var window_instance: Window = [error_window_scene, ad_window_scene].pick_random().instantiate()
+		window_instance = popups.pick_random().instantiate()
 		
 		window_instance.desktop_env = self
 		window_instance.size = Vector2.ZERO
@@ -29,21 +29,16 @@ func create_new_window() -> void:
 		window_instance.position = Vector2(random_position_x, random_position_y)
 		virus_popups.add_child(window_instance)
 		
-		if not Global.autoclose_ability_activated:
-			return
-			
-		await get_tree().create_timer(randf_range(0.1, 0.4)).timeout
-		
-		if !window_instance:
-			return
-		window_instance.close_requested.emit()
-		
+	#if not Global.autoclose_ability_activated: return
+	#await get_tree().create_timer(randf_range(0.1, 0.4)).timeout
+	#if !window_instance: return
+	#window_instance.close_requested.emit()
 
-#func remove_popups_automatically() -> void:
-	#if virus_popups.get_child_count() > 0:
-		#for popup in virus_popups.get_children():
-			#popup.queue_free()
-	#await get_tree().create_timer(0.5).timeout
+func remove_popups_automatically() -> void:
+	if virus_popups.get_child_count() > 0:
+		for popup in virus_popups.get_children():
+			popup.queue_free()
+	await get_tree().create_timer(0.5).timeout
 
 func _on_window_spawn_delay_timeout() -> void:
 	create_new_window()
@@ -62,7 +57,7 @@ func _on_software_store_pressed() -> void:
 	tween.tween_property(software_store_instance, "size", Vector2i(885, 425), 0.1)
 	add_child(software_store_instance)
 
-#func _on_autoclose_delay_timeout() -> void:
-	#if Global.autoclose_ability_activated:
-		#if virus_popups.get_child_count() > 0:
-			#virus_popups.get_child(0).close_window()
+func _on_autoclose_delay_timeout() -> void:
+	if Global.autoclose_ability_activated:
+		if virus_popups.get_child_count() > 0:
+			virus_popups.get_child(0).close_window()

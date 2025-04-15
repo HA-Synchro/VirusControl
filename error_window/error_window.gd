@@ -18,7 +18,6 @@ func close_window() -> void:
 func _on_close_requested() -> void:
 	close_window()
 
-
 func _on_fix_button_pressed() -> void:
 	if desktop_env:
 		var rand_no : int = randi_range(0,2)

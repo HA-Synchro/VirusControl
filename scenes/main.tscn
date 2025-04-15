@@ -24,8 +24,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5qli")
-error_window_scene = ExtResource("2_0wfyh")
-ad_window_scene = ExtResource("3_choun")
+popups = Array[PackedScene]([ExtResource("3_choun"), ExtResource("2_0wfyh")])
 file_explorer_scene = ExtResource("3_tipki")
 software_store_scene = ExtResource("4_85g3d")
 
