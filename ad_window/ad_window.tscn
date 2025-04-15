@@ -52,19 +52,16 @@ grow_vertical = 2
 [node name="TextureRect" type="TextureRect" parent="PanelContainer"]
 layout_mode = 2
 texture = ExtResource("2_y3o4a")
+expand_mode = 1
 
 [node name="CenterContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 8
 alignment = 1
-
-[node name="Label" type="Label" parent="PanelContainer/CenterContainer"]
-layout_mode = 2
-text = "Get free CAT :D"
 
 [node name="GetButton" type="Button" parent="PanelContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Get
 "
 
