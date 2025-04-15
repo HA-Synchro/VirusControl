@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://60p30npm6kti"]
+[gd_scene load_steps=15 format=3 uid="uid://60p30npm6kti"]
 
 [ext_resource type="Script" uid="uid://cs741ecyhf2rf" path="res://ad_window/ad_window.gd" id="1_wfamw"]
 [ext_resource type="Script" uid="uid://dgvf657jcu8kr" path="res://ad_window/ad_resource.gd" id="2_7wedu"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://8577dpvsyg5w" path="res://ad_window/assets/TVP.png" id="4_t7k7s"]
 [ext_resource type="Texture2D" uid="uid://bvywnidsapxcb" path="res://ad_window/assets/arch.png" id="5_ssnec"]
 [ext_resource type="Texture2D" uid="uid://nwggo0uk5uh7" path="res://ad_window/assets/astra.png" id="6_corsv"]
+[ext_resource type="Texture2D" uid="uid://c1mkrgn7tj3c3" path="res://ad_window/assets/1000.jpg" id="7_2qchl"]
+[ext_resource type="Texture2D" uid="uid://orybdq13cqo1" path="res://ad_window/assets/join_the_revloution.png" id="8_xi67k"]
 
 [sub_resource type="Resource" id="Resource_7wedu"]
 script = ExtResource("2_7wedu")
@@ -35,12 +37,26 @@ img = ExtResource("6_corsv")
 label_text = "Tired of viruses?"
 metadata/_custom_type_script = "uid://dgvf657jcu8kr"
 
+[sub_resource type="Resource" id="Resource_xi67k"]
+script = ExtResource("2_7wedu")
+url = "https://www.bizrescuepro.com/the-dangers-of-clicking-on-unknown-links-and-attachments/"
+img = ExtResource("7_2qchl")
+label_text = "Wanna be rich?"
+metadata/_custom_type_script = "uid://dgvf657jcu8kr"
+
+[sub_resource type="Resource" id="Resource_2qchl"]
+script = ExtResource("2_7wedu")
+url = "https://en.wikipedia.org/wiki/Bolsheviks"
+img = ExtResource("8_xi67k")
+label_text = "Support the revolution"
+metadata/_custom_type_script = "uid://dgvf657jcu8kr"
+
 [node name="AdWindow" type="Window"]
 title = "Only for u <3"
 position = Vector2i(0, 36)
 size = Vector2i(400, 300)
 script = ExtResource("1_wfamw")
-ad_array = Array[ExtResource("2_7wedu")]([SubResource("Resource_7wedu"), SubResource("Resource_t7k7s"), SubResource("Resource_ssnec"), SubResource("Resource_corsv")])
+ad_array = Array[ExtResource("2_7wedu")]([SubResource("Resource_7wedu"), SubResource("Resource_t7k7s"), SubResource("Resource_ssnec"), SubResource("Resource_corsv"), SubResource("Resource_xi67k"), SubResource("Resource_2qchl")])
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

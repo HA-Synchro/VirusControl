@@ -18,22 +18,32 @@ func _process(delta: float) -> void:
 
 func create_new_window() -> void:
 	if not Global.antivirus_activated:
-		var error_window_instance: Window = [error_window_scene, ad_window_scene].pick_random().instantiate()
+		var window_instance: Window = [error_window_scene, ad_window_scene].pick_random().instantiate()
 		
-		error_window_instance.desktop_env = self
-		error_window_instance.size = Vector2.ZERO
+		window_instance.desktop_env = self
+		window_instance.size = Vector2.ZERO
 		var random_position_x = randf_range(spawn_area.pivot_offset.x, spawn_area.size.x)
 		var random_position_y = randf_range(spawn_area.pivot_offset.y, spawn_area.size.y)
 		var tween = create_tween()
-		tween.tween_property(error_window_instance, "size", Vector2i(400, 150), 0.1)
-		error_window_instance.position = Vector2(random_position_x, random_position_y)
-		virus_popups.add_child(error_window_instance)
+		tween.tween_property(window_instance, "size", Vector2i(400, 150), 0.1)
+		window_instance.position = Vector2(random_position_x, random_position_y)
+		virus_popups.add_child(window_instance)
+		
+		if not Global.autoclose_ability_activated:
+			return
+			
+		await get_tree().create_timer(randf_range(0.1, 0.4)).timeout
+		
+		if !window_instance:
+			return
+		window_instance.close_requested.emit()
+		
 
-func remove_popups_automatically() -> void:
-	if virus_popups.get_child_count() > 0:
-		for popup in virus_popups.get_children():
-			popup.queue_free()
-	await get_tree().create_timer(0.5).timeout
+#func remove_popups_automatically() -> void:
+	#if virus_popups.get_child_count() > 0:
+		#for popup in virus_popups.get_children():
+			#popup.queue_free()
+	#await get_tree().create_timer(0.5).timeout
 
 func _on_window_spawn_delay_timeout() -> void:
 	create_new_window()
@@ -52,7 +62,7 @@ func _on_software_store_pressed() -> void:
 	tween.tween_property(software_store_instance, "size", Vector2i(885, 425), 0.1)
 	add_child(software_store_instance)
 
-func _on_autoclose_delay_timeout() -> void:
-	if Global.autoclose_ability_activated:
-		if virus_popups.get_child_count() > 0:
-			virus_popups.get_child(0).close_window()
+#func _on_autoclose_delay_timeout() -> void:
+	#if Global.autoclose_ability_activated:
+		#if virus_popups.get_child_count() > 0:
+			#virus_popups.get_child(0).close_window()
