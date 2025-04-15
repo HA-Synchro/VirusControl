@@ -16,6 +16,7 @@ func update_ui():
 	for _name in folder.keys():
 		var is_folder = typeof(folder[_name]) == TYPE_DICTIONARY
 		var button = Button.new()
+		button.custom_minimum_size = Vector2(64, 64)
 		button.text = _name + ("/" if is_folder else "")
 		button.pressed.connect(_on_item_selected.bind(_name))
 		grid_container.add_child(button)

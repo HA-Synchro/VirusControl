@@ -4,17 +4,4 @@
 
 [resource]
 script = ExtResource("1_oubxl")
-data = {
-"Drives": {
-"C:": {
-"Users": {
-"Admin": {
-"Documents": {
-"text.txt": null
-}
-}
-}
-}
-}
-}
 metadata/_custom_type_script = "uid://bpy4bc3xglbxi"

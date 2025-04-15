@@ -1,20 +1,118 @@
 class_name FileSystem
 extends Resource
 
-@export var data: Dictionary = {
-	"Drives": {
-		"C:": {
-			"Users": {
-				"Admin": {
-					"Documents": {
-						"text.txt": null
-					}
-				}
-			}
-		}
-	}
-}
+var data: Dictionary = {}
 var current_path: Array = ["Drives"]
+
+func _init():
+	randomize()
+	data = generate_random_filesystem()
+
+func generate_random_filesystem() -> Dictionary:
+	var extensions = [".txt", ".doc", ".pdf", ".jpg", ".png", ".mp3", ".mp4", ".exe", ".dll", ".sys", ".bat", ".zip"]
+	var adjectives = ["important", "old", "new", "secret", "personal", "work", "backup", "temp", "final", "draft"]
+	var nouns = ["report", "data", "letter", "project", "photo", "song", "movie", "file", "document", "presentation"]
+	var drive_letters = ["C:", "D:", "E:", "F:", "G:", "H:", "I:", "J:"]
+
+	var filesystem = {
+		"Drives": {}
+	}
+
+	var num_drives = randi() % 4 + 1
+	var used_letters = []
+
+	used_letters.append("C:")
+	filesystem["Drives"]["C:"] = {
+		"EggApps": {
+			"Egg Defender": generate_random_folder([], extensions, adjectives, nouns, 2),
+			"Egg Office": generate_random_folder([], extensions, adjectives, nouns, 1),
+			"Egg Browser": generate_random_folder([], extensions, adjectives, nouns, 1),
+		},
+		"EggApps (x86)": {
+			"Steam": generate_random_folder([], extensions, adjectives, nouns, 1),
+			"Common Files": generate_random_folder([], extensions, adjectives, nouns, 1),
+		},
+		"Chickens": {
+			"Public": {
+				"Public Nests": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Public Eggs": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Public Clucks": generate_random_folder([], extensions, adjectives, nouns, 1),
+			},
+			"Chicken": {
+				"Roost": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Nests": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Eggs": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Feathers": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Clucks": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"Pecks": generate_random_folder([], extensions, adjectives, nouns, 1),
+			}
+		},
+		"EggOS": {
+			"Coop32": generate_random_folder([], extensions, adjectives, nouns, 1),
+			"HenHouse": generate_random_folder([], extensions, adjectives, nouns, 1),
+			"EggLogs": generate_random_folder([], extensions, adjectives, nouns, 1),
+		},
+		"CluckLogs": generate_random_folder([], extensions, adjectives, nouns, 1),
+		"HenHouse": generate_random_folder([], extensions, adjectives, nouns, 1),
+	}
+
+	for _i in range(1, num_drives):
+		var available_letters = drive_letters.filter(func(letter): return letter not in used_letters)
+		if available_letters.size() > 0:
+			var drive_letter = available_letters[randi() % available_letters.size()]
+			used_letters.append(drive_letter)
+
+			filesystem["Drives"][drive_letter] = {
+				"EggBackups": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"EggGames": generate_random_folder([], extensions, adjectives, nouns, 1),
+				"EggProjects": generate_random_folder([], extensions, adjectives, nouns, 1),
+			}
+
+	var _virus_placed = false
+	var current_folder = filesystem["Drives"]["C:"]
+	var depth = randi() % 3 + 1
+
+	for i in range(depth):
+		var folder_keys = current_folder.keys()
+		if folder_keys.size() > 0:
+			var random_folder = folder_keys[randi() % folder_keys.size()]
+			if typeof(current_folder[random_folder]) == TYPE_DICTIONARY:
+				current_folder = current_folder[random_folder]
+			else:
+				break
+
+	current_folder["VirusFile_39x2.exe"] = null
+
+	return filesystem
+
+func generate_random_folder(folders: Array, extensions: Array, adjectives: Array, nouns: Array, max_depth: int, current_depth: int = 0) -> Dictionary:
+	var result = {}
+
+	if current_depth >= max_depth:
+		return result
+
+	var subfolder_count = randi() % 3 + 1 if current_depth < max_depth - 1 else 0
+	for i in range(subfolder_count):
+		if folders.size() > 0:
+			var folder_index = randi() % folders.size()
+			var folder_name = folders[folder_index]
+			folders.remove_at(folder_index)
+			result[folder_name] = generate_random_folder(folders, extensions, adjectives, nouns, max_depth, current_depth + 1)
+
+	var file_count = randi() % 5 + 2
+	for i in range(file_count):
+		var file_name = ""
+		if randf() < 0.8:
+			file_name = adjectives[randi() % adjectives.size()] + "_" + nouns[randi() % nouns.size()]
+		else:
+			var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+			for j in range(randi() % 8 + 3):
+				file_name += chars[randi() % chars.length()]
+
+		file_name += extensions[randi() % extensions.size()]
+		result[file_name] = null
+
+	return result
 
 func get_current_folder() -> Dictionary:
 	var folder = data

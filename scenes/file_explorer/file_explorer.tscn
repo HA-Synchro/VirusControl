@@ -64,6 +64,8 @@ text = "<-"
 
 [node name="GridContainer" type="GridContainer" parent="HSplitContainer/MainExplorer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+columns = 4
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="HSplitContainer/Sidebar/VBoxContainer/Home" to="." method="_on_home_pressed"]
