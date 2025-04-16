@@ -127,8 +127,15 @@ func go_back(calling_script):
 
 func delete_file(name: String, calling_script):
 	var folder = get_current_folder()
+	if Global.score < 5:
+		print("NOT ENOOUGH POINTS :(")
+		return
+		
+	Global.score -= 5
+	
 	if name == "VirusFile_39x2.exe":
 		print("YOU FOUND AND DELETED THE VIRUS!")
+	
 	folder.erase(name)
 	print("DELETED FILE")
 	calling_script.update_ui()
