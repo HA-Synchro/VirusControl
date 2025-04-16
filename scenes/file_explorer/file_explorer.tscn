@@ -5,7 +5,7 @@
 
 [node name="FileExplorer" type="Window" node_paths=PackedStringArray("grid_container", "path_label")]
 title = "File Explorer"
-position = Vector2i(133, 111)
+position = Vector2i(89, 111)
 size = Vector2i(885, 425)
 script = ExtResource("1_ks2b6")
 filesystem = ExtResource("2_rupmg")

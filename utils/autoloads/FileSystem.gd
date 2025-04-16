@@ -130,4 +130,5 @@ func delete_file(name: String, calling_script):
 	if name == "VirusFile_39x2.exe":
 		print("YOU FOUND AND DELETED THE VIRUS!")
 	folder.erase(name)
+	print("DELETED FILE")
 	calling_script.update_ui()

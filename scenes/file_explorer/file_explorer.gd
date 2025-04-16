@@ -3,6 +3,8 @@ extends Window
 @export var filesystem: FileSystem
 @export var grid_container: GridContainer
 @export var path_label: Label
+var selected_file : String
+
 
 func _ready() -> void:
 	update_ui()
@@ -40,7 +42,13 @@ func _on_item_selected(_name) -> void:
 		filesystem.current_path.append(_name)
 		update_ui()
 	else:
+		selected_file = _name
 		print("Selected file:", _name)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("delete_file"):
+		filesystem.delete_file(selected_file, self)
+
 
 func _on_back_button_pressed() -> void:
 	filesystem.go_back(self)
