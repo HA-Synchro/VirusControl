@@ -13,8 +13,9 @@ class_name DesktopEnvironment
 
 var window_instance: Window
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	get_score()
+	Global.score = clampi(Global.score, 0, Global.score)
 	score_label.text = "Score: %d pts" % Global.score
 
 func create_new_window() -> void:

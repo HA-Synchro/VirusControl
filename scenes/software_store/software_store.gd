@@ -12,7 +12,6 @@ func buy_upgrade(idx: int):
 		print_rich("[color=tomato]Not Enough Points![/color]")
 
 # SIGNAL CALLBACKS
-
 func _on_close_requested() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "size", Vector2i.ZERO, 0.1)

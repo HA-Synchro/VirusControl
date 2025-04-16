@@ -2,9 +2,10 @@ extends Node
 
 var score: int = 0
 
-
 var antivirus_activated: bool = false
 var autoclose_ability_activated: bool = false
+
+var virus_deleted: bool = false
 
 func increase_score(amount: int) -> void:
 	score += amount

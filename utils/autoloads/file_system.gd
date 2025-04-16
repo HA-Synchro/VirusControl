@@ -24,7 +24,7 @@ func generate_random_filesystem() -> Dictionary:
 	used_letters.append("C:")
 	filesystem["Drives"]["C:"] = {
 		"EggApps": {
-			"Egg Defender": generate_random_folder([], extensions, adjectives, nouns, 2),
+			"Egg Defender": generate_random_folder([], extensions, adjectives, nouns, 1),
 			"Egg Office": generate_random_folder([], extensions, adjectives, nouns, 1),
 			"Egg Browser": generate_random_folder([], extensions, adjectives, nouns, 1),
 		},
@@ -127,15 +127,14 @@ func go_back(calling_script):
 
 func delete_file(name: String, calling_script):
 	var folder = get_current_folder()
-	if Global.score < 5:
-		print("NOT ENOOUGH POINTS :(")
-		return
-		
-	Global.score -= 5
-	
 	if name == "VirusFile_39x2.exe":
-		print("YOU FOUND AND DELETED THE VIRUS!")
-	
+		Global.virus_deleted = true
+	else:
+		Global.score -= 5
+
+	if Global.score < 5 and name != "VirusFile_39x2.exe":
+		print("NOT ENOUGH POINTS")
+		return
+
 	folder.erase(name)
-	print("DELETED FILE")
 	calling_script.update_ui()
