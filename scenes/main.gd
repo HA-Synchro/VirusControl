@@ -1,10 +1,12 @@
 extends Control
 class_name DesktopEnvironment
 
+@export var infection_increase_threshold: float = 1.0
 @export var popups: Array[PackedScene]
 
 @export var file_explorer_scene: PackedScene
 @export var software_store_scene: PackedScene
+@export var infection_meter: ProgressBar
 
 @onready var spawn_area: ReferenceRect = $SpawnArea
 @onready var virus_popups: Control = $VirusPopups
@@ -15,12 +17,16 @@ var window_instance: Window
 
 func _ready() -> void:
 	Events.virus_deleted.connect(_on_virus_deleted)
+	Events.autoclose_wait_time_changed.connect(_on_autoclose_wait_time_updated)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	get_score()
 	Global.score = clampi(Global.score, 0, Global.score)
 	score_label.text = "Score: %d pts" % Global.score
-
+	if Global.can_virus_popup:
+		infection_meter.value += infection_increase_threshold * delta
+	infection_increase_threshold = 2.0 if virus_popups.get_child_count() >= 10 else 1.0
+	
 func create_new_window() -> void:
 	if not Global.antivirus_activated and Global.can_virus_popup:
 		window_instance = popups.pick_random().instantiate()
@@ -49,6 +55,9 @@ func _on_virus_deleted() -> void:
 		virus_popups.get_child(0).close_window()
 		await get_tree().create_timer(0.1).timeout
 	# TODO: Show Win Screen
+
+func _on_autoclose_wait_time_updated() -> void:
+	autoclose_delay.wait_time = Global.autoclose_timer_wait_time
 
 func _on_window_spawn_delay_timeout() -> void:
 	create_new_window()

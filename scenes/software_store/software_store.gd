@@ -8,6 +8,9 @@ func buy_upgrade(idx: int):
 		Global.score -= upgrade.item_cost
 		Global[upgrade.item_property] = true
 		upgrade.item_cost += upgrade.item_cost_increase_rate
+		if idx == 0 and Global.autoclose_timer_wait_time >= 0.5:
+			Global.autoclose_timer_wait_time -= 0.5
+			Events.autoclose_wait_time_changed.emit()
 	else:
 		print_rich("[color=tomato]Not Enough Points![/color]")
 
