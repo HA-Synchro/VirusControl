@@ -52,3 +52,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_back_button_pressed() -> void:
 	filesystem.go_back(self)
+
+
+func _on_delete_button_pressed() -> void:
+	filesystem.delete_file(selected_file, self)
