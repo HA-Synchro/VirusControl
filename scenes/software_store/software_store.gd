@@ -7,5 +7,15 @@ func _on_close_requested() -> void:
 	await tween.finished
 	self.queue_free()
 
-func on_item_clicked(index: int, property: String) -> void:
-	Global[property] = not Global[property]
+func on_item_clicked(index: int, property: String, cost: int) -> void:
+	print("index: ", index, " | property: ", property, " | cost: ", cost, " | is-activated: ", Global[property])
+	
+	if Global[property] == true:
+		print("ALREADY BOUGHT!")
+		return
+		
+	if Global.score >= cost:
+		Global.score -= cost
+		Global[property] = not Global[property]
+	else:
+		print("NOT ENOUGH SCORE!")

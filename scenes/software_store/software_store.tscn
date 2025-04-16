@@ -24,16 +24,18 @@ columns = 6
 [node name="Antivirus" type="Button" parent="PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+toggle_mode = true
 text = "Antivirus
 (50 Pts)"
 
 [node name="PopupCloser" type="Button" parent="PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+toggle_mode = true
 text = "Auto 
 popup closer
 (50 Pts)"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="pressed" from="PanelContainer/GridContainer/Antivirus" to="." method="on_item_clicked" binds= [0, "antivirus_activated"]]
+[connection signal="pressed" from="PanelContainer/GridContainer/Antivirus" to="." method="on_item_clicked" binds= [0, "antivirus_activated", 50]]
 [connection signal="pressed" from="PanelContainer/GridContainer/PopupCloser" to="." method="on_item_clicked" binds= [1, "autoclose_ability_activated"]]
