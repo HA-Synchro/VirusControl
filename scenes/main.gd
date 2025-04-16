@@ -13,13 +13,16 @@ class_name DesktopEnvironment
 
 var window_instance: Window
 
+func _ready() -> void:
+	Events.virus_deleted.connect(_on_virus_deleted)
+
 func _process(_delta: float) -> void:
 	get_score()
 	Global.score = clampi(Global.score, 0, Global.score)
 	score_label.text = "Score: %d pts" % Global.score
 
 func create_new_window() -> void:
-	if not Global.antivirus_activated:
+	if not Global.antivirus_activated and Global.can_virus_popup:
 		window_instance = popups.pick_random().instantiate()
 
 		window_instance.desktop_env = self
@@ -31,16 +34,21 @@ func create_new_window() -> void:
 		window_instance.position = Vector2(random_position_x, random_position_y)
 		virus_popups.add_child(window_instance)
 
-	#if not Global.autoclose_ability_activated: return
-	#await get_tree().create_timer(randf_range(0.1, 0.4)).timeout
-	#if !window_instance: return
-	#window_instance.close_requested.emit()
-
 func remove_popups_automatically() -> void:
 	if virus_popups.get_child_count() > 0:
 		for popup in virus_popups.get_children():
 			popup.queue_free()
 	await get_tree().create_timer(0.5).timeout
+
+# ---------- SIGNAL CALLBACKS ---------- #
+
+func _on_virus_deleted() -> void:
+	print("VIRUS Has been Deleted!")
+	Global.can_virus_popup = false
+	while !virus_popups.get_child_count() == 0:
+		virus_popups.get_child(0).close_window()
+		await get_tree().create_timer(0.1).timeout
+	# TODO: Show Win Screen
 
 func _on_window_spawn_delay_timeout() -> void:
 	create_new_window()
