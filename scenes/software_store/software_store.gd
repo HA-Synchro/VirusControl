@@ -2,14 +2,14 @@ extends Window
 
 @export var upgrades: Array[UpgradeItem]
 
-func buy_upgrade():
-	for upgrade in upgrades:
-		if Global.score >= upgrade.item_cost:
-			Global.score -= upgrade.item_cost
-			Global[upgrade.item_property] = true
-			upgrade.item_cost += upgrade.item_cost_increase_rate
-		else:
-			print_rich("[color=tomato]Not Enough Points![/color]")
+func buy_upgrade(idx: int):
+	var upgrade = upgrades[idx]
+	if Global.score >= upgrade.item_cost:
+		Global.score -= upgrade.item_cost
+		Global[upgrade.item_property] = true
+		upgrade.item_cost += upgrade.item_cost_increase_rate
+	else:
+		print_rich("[color=tomato]Not Enough Points![/color]")
 
 # SIGNAL CALLBACKS
 
@@ -20,4 +20,4 @@ func _on_close_requested() -> void:
 	self.queue_free()
 
 func on_item_clicked(index: int) -> void:
-	buy_upgrade()
+	buy_upgrade(index)

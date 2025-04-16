@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dibbf0518rqt1"]
+[gd_scene load_steps=5 format=3 uid="uid://dibbf0518rqt1"]
 
 [ext_resource type="Script" uid="uid://dcrmdowx7yxuy" path="res://scenes/software_store/software_store.gd" id="1_ead30"]
 [ext_resource type="Script" uid="uid://62abtipqs0x7" path="res://utils/resources/upgrades/upgrade_item.gd" id="3_7vv10"]
+[ext_resource type="Resource" uid="uid://byfwy1k8c4h3a" path="res://utils/resources/upgrades/antivirus.tres" id="4_7vv10"]
 [ext_resource type="Resource" uid="uid://dh1y8eri8s8mv" path="res://utils/resources/upgrades/auto_closer.tres" id="4_c5bfi"]
 
 [node name="SoftwareStore" type="Window"]
@@ -9,7 +10,7 @@ title = "Software Store"
 position = Vector2i(133, 111)
 size = Vector2i(885, 425)
 script = ExtResource("1_ead30")
-upgrades = Array[ExtResource("3_7vv10")]([ExtResource("4_c5bfi")])
+upgrades = Array[ExtResource("3_7vv10")]([ExtResource("4_c5bfi"), ExtResource("4_7vv10")])
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -40,5 +41,5 @@ popup closer
 (50 Pts)"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="pressed" from="PanelContainer/GridContainer/Antivirus" to="." method="on_item_clicked" binds= [0]]
-[connection signal="pressed" from="PanelContainer/GridContainer/PopupCloser" to="." method="on_item_clicked" binds= [1]]
+[connection signal="pressed" from="PanelContainer/GridContainer/Antivirus" to="." method="on_item_clicked" binds= [1]]
+[connection signal="pressed" from="PanelContainer/GridContainer/PopupCloser" to="." method="on_item_clicked" binds= [0]]
