@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_nm26w")
 item_name = "Antivirus"
-item_cost = 10
-item_cost_increase_rate = 10
-item_property = "autoclose_ability_activated"
+item_cost = 500
+item_cost_increase_rate = 0
+item_property = "antivirus_activated"
+item_btn = NodePath("PanelContainer/GridContainer/Antivirus")
 metadata/_custom_type_script = "uid://62abtipqs0x7"

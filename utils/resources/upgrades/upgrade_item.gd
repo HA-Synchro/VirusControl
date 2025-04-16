@@ -6,3 +6,4 @@ extends Resource
 @export var item_cost: int
 @export var item_cost_increase_rate: int
 @export var item_property: String
+@export var item_btn: NodePath

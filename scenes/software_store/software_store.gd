@@ -2,12 +2,22 @@ extends Window
 
 @export var upgrades: Array[UpgradeItem]
 
+func _ready() -> void:
+	for upgrade in upgrades:
+		var btn_node = get_node(upgrade.item_btn)
+		btn_node.text = upgrade.item_name + "\n(%d Pts)" % upgrade.item_cost
+
 func buy_upgrade(idx: int):
 	var upgrade = upgrades[idx]
+	var btn_node = get_node(upgrade.item_btn)
+	
+	btn_node.text = upgrade.item_name + "\n(%d Pts)" % upgrade.item_cost
+	
 	if Global.score >= upgrade.item_cost:
 		Global.score -= upgrade.item_cost
 		Global[upgrade.item_property] = true
 		upgrade.item_cost += upgrade.item_cost_increase_rate
+		
 		if idx == 0 and Global.autoclose_timer_wait_time >= 0.5:
 			Global.autoclose_timer_wait_time -= 0.5
 			Events.autoclose_wait_time_changed.emit()
