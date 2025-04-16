@@ -5,6 +5,7 @@ var data: Dictionary = {}
 var current_path: Array = ["Drives"]
 var virus_file_name: String = ""
 var virus_file_path: Array = []
+var sidebar_shortcuts := []
 
 func _init():
 	randomize()
@@ -124,6 +125,24 @@ func generate_random_folder(folders: Array, extensions: Array, adjectives: Array
 		result[file_name] = null
 
 	return result
+
+func get_sidebar_shortcuts() -> Array:
+	var shortcuts = []
+
+	shortcuts.append(["Drives"])
+
+	var chicken_path = ["Drives", "C:", "Chickens", "Chicken"]
+	var current = data
+	for part in chicken_path:
+		if not current.has(part):
+			return shortcuts
+		current = current[part]
+
+	for folder in current.keys():
+		if typeof(current[folder]) == TYPE_DICTIONARY:
+			shortcuts.append(chicken_path + [folder])
+
+	return shortcuts
 
 func get_current_folder() -> Dictionary:
 	var folder = data
