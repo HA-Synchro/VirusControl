@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FileSystem" load_steps=2 format=3 uid="uid://boag0yytgn8w8"]
 
-[ext_resource type="Script" uid="uid://bpy4bc3xglbxi" path="res://utils/autoloads/FileSystem.gd" id="1_oubxl"]
+[ext_resource type="Script" uid="uid://bpy4bc3xglbxi" path="res://utils/autoloads/file_system.gd" id="1_oubxl"]
 
 [resource]
 script = ExtResource("1_oubxl")

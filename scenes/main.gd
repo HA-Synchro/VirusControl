@@ -14,12 +14,13 @@ class_name DesktopEnvironment
 var window_instance: Window
 
 func _process(delta: float) -> void:
+	get_score()
 	score_label.text = "Score: %d pts" % Global.score
 
 func create_new_window() -> void:
 	if not Global.antivirus_activated:
 		window_instance = popups.pick_random().instantiate()
-		
+
 		window_instance.desktop_env = self
 		window_instance.size = Vector2.ZERO
 		var random_position_x = randf_range(spawn_area.pivot_offset.x, spawn_area.size.x)
@@ -28,7 +29,7 @@ func create_new_window() -> void:
 		tween.tween_property(window_instance, "size", Vector2i(400, 150), 0.1)
 		window_instance.position = Vector2(random_position_x, random_position_y)
 		virus_popups.add_child(window_instance)
-		
+
 	#if not Global.autoclose_ability_activated: return
 	#await get_tree().create_timer(randf_range(0.1, 0.4)).timeout
 	#if !window_instance: return
@@ -61,3 +62,8 @@ func _on_autoclose_delay_timeout() -> void:
 	if Global.autoclose_ability_activated:
 		if virus_popups.get_child_count() > 0:
 			virus_popups.get_child(0).close_window()
+
+# ---------- DEBUG FUNCTIONS ---------- #
+func get_score() -> void:
+	if Input.is_action_just_pressed("ui_accept"):
+		Global.increase_score(100)

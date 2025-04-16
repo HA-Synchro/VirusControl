@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UpgradeItem" load_steps=2 format=3 uid="uid://dh1y8eri8s8mv"]
+
+[ext_resource type="Script" uid="uid://62abtipqs0x7" path="res://utils/resources/upgrades/upgrade_item.gd" id="1_gwgue"]
+
+[resource]
+script = ExtResource("1_gwgue")
+item_name = "Auto Closer"
+item_cost = 10
+item_cost_increase_rate = 10
+item_property = "autoclose_ability_activated"
+metadata/_custom_type_script = "uid://62abtipqs0x7"

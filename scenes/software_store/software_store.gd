@@ -1,5 +1,17 @@
 extends Window
 
+@export var upgrades: Array[UpgradeItem]
+
+func buy_upgrade():
+	for upgrade in upgrades:
+		if Global.score >= upgrade.item_cost:
+			Global.score -= upgrade.item_cost
+			Global[upgrade.item_property] = true
+			upgrade.item_cost += upgrade.item_cost_increase_rate
+		else:
+			print_rich("[color=tomato]Not Enough Points![/color]")
+
+# SIGNAL CALLBACKS
 
 func _on_close_requested() -> void:
 	var tween = create_tween()
@@ -7,15 +19,5 @@ func _on_close_requested() -> void:
 	await tween.finished
 	self.queue_free()
 
-func on_item_clicked(index: int, property: String, cost: int) -> void:
-	print("index: ", index, " | property: ", property, " | cost: ", cost, " | is-activated: ", Global[property])
-	
-	if Global[property] == true:
-		print("ALREADY BOUGHT!")
-		return
-		
-	if Global.score >= cost:
-		Global.score -= cost
-		Global[property] = not Global[property]
-	else:
-		print("NOT ENOUGH SCORE!")
+func on_item_clicked(index: int) -> void:
+	buy_upgrade()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://t2pn2cpod3bc"]
 
 [ext_resource type="Script" uid="uid://dkohr6ruhcrd0" path="res://scenes/file_explorer/file_explorer.gd" id="1_ks2b6"]
-[ext_resource type="Resource" uid="uid://boag0yytgn8w8" path="res://utils/resources/FileSystemData.tres" id="2_rupmg"]
+[ext_resource type="Resource" uid="uid://boag0yytgn8w8" path="res://utils/resources/file_system_data.tres" id="2_rupmg"]
 
 [node name="FileExplorer" type="Window" node_paths=PackedStringArray("grid_container", "path_label")]
 title = "File Explorer"
