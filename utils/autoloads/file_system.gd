@@ -3,6 +3,9 @@ extends Resource
 
 var data: Dictionary = {}
 var current_path: Array = ["Drives"]
+var virus_file_name: String = ""
+var virus_file_path: Array = []
+var sidebar_shortcuts := []
 
 func _init():
 	randomize()
@@ -24,7 +27,7 @@ func generate_random_filesystem() -> Dictionary:
 	used_letters.append("C:")
 	filesystem["Drives"]["C:"] = {
 		"EggApps": {
-			"Egg Defender": generate_random_folder([], extensions, adjectives, nouns, 2),
+			"Egg Defender": generate_random_folder([], extensions, adjectives, nouns, 1),
 			"Egg Office": generate_random_folder([], extensions, adjectives, nouns, 1),
 			"Egg Browser": generate_random_folder([], extensions, adjectives, nouns, 1),
 		},
@@ -68,20 +71,29 @@ func generate_random_filesystem() -> Dictionary:
 				"EggProjects": generate_random_folder([], extensions, adjectives, nouns, 1),
 			}
 
-	var _virus_placed = false
+	# --- Generate Virus File Name ---
+	var virus_id = str(randi() % 1000)
+	var virus_suffix = ["trojan", "worm", "spy", "stealer", "keylogger", "dropper", "hack", "horse"]
+	var virus_file_name = "Virus_" + virus_suffix[randi() % virus_suffix.size()] + "_" + virus_id + ".exe"
+	self.virus_file_name = virus_file_name
+
+	# --- Place Virus Randomly ---
 	var current_folder = filesystem["Drives"]["C:"]
 	var depth = randi() % 3 + 1
+	var path = ["Drives", "C:"]
 
 	for i in range(depth):
 		var folder_keys = current_folder.keys()
-		if folder_keys.size() > 0:
-			var random_folder = folder_keys[randi() % folder_keys.size()]
-			if typeof(current_folder[random_folder]) == TYPE_DICTIONARY:
-				current_folder = current_folder[random_folder]
-			else:
-				break
+		var subfolders = folder_keys.filter(func(k): return typeof(current_folder[k]) == TYPE_DICTIONARY)
+		if subfolders.size() == 0:
+			break
+		var random_folder = subfolders[randi() % subfolders.size()]
+		current_folder = current_folder[random_folder]
+		path.append(random_folder)
 
-	current_folder["VirusFile_39x2.exe"] = null
+	current_folder[virus_file_name] = null
+	self.virus_file_path = path + [virus_file_name]
+	print(virus_file_path)
 
 	return filesystem
 
@@ -114,6 +126,24 @@ func generate_random_folder(folders: Array, extensions: Array, adjectives: Array
 
 	return result
 
+func get_sidebar_shortcuts() -> Array:
+	var shortcuts = []
+
+	shortcuts.append(["Drives"])
+
+	var chicken_path = ["Drives", "C:", "Chickens", "Chicken"]
+	var current = data
+	for part in chicken_path:
+		if not current.has(part):
+			return shortcuts
+		current = current[part]
+
+	for folder in current.keys():
+		if typeof(current[folder]) == TYPE_DICTIONARY:
+			shortcuts.append(chicken_path + [folder])
+
+	return shortcuts
+
 func get_current_folder() -> Dictionary:
 	var folder = data
 	for part in current_path:
@@ -127,15 +157,14 @@ func go_back(calling_script):
 
 func delete_file(name: String, calling_script):
 	var folder = get_current_folder()
-	if Global.score < 5:
-		print("NOT ENOOUGH POINTS :(")
+	if name == virus_file_name:
+		Events.virus_deleted.emit()
+	else:
+		Global.score -= 5
+
+	if Global.score < 5 and name != virus_file_name:
+		print("NOT ENOUGH POINTS")
 		return
-		
-	Global.score -= 5
-	
-	if name == "VirusFile_39x2.exe":
-		print("YOU FOUND AND DELETED THE VIRUS!")
-	
+
 	folder.erase(name)
-	print("DELETED FILE")
 	calling_script.update_ui()

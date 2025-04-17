@@ -1,14 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhfme4jtr7hxm"]
+[gd_scene load_steps=9 format=3 uid="uid://bhfme4jtr7hxm"]
 
 [ext_resource type="Script" uid="uid://blukyxbov3cah" path="res://scenes/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://bq38ld4mhr5ia" path="res://scenes/error_window/error_window.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://60p30npm6kti" path="res://scenes/ad_window/ad_window.tscn" id="3_choun"]
 [ext_resource type="Texture2D" uid="uid://dojxsqn2mqxub" path="res://assets/EggOsDefaultWallpaper.png" id="3_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://5r7i1h38ggtr" path="res://assets/egg-os-rekt.png" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://t2pn2cpod3bc" path="res://scenes/file_explorer/file_explorer.tscn" id="3_tipki"]
 [ext_resource type="PackedScene" uid="uid://dibbf0518rqt1" path="res://scenes/software_store/software_store.tscn" id="4_85g3d"]
-[ext_resource type="Texture2D" uid="uid://qs0d0i6gckum" path="res://assets/egg-os-rekt-hovered.png" id="4_jyhfs"]
-[ext_resource type="Texture2D" uid="uid://c44lx7uwvcmr3" path="res://assets/egg-os-pressed.png" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://d3rdiyojb2uu4" path="res://icon.svg" id="6_tefeu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
@@ -16,7 +13,7 @@ font_size = 51
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" node_paths=PackedStringArray("infection_meter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +24,7 @@ script = ExtResource("1_o5qli")
 popups = Array[PackedScene]([ExtResource("3_choun"), ExtResource("2_0wfyh")])
 file_explorer_scene = ExtResource("3_tipki")
 software_store_scene = ExtResource("4_85g3d")
+infection_meter = NodePath("TaskBar/HBoxContainer/MarginContainer/InfectionMeter")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -44,7 +42,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="AutocloseDelay" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 5.0
 autostart = true
 
 [node name="SpawnArea" type="ReferenceRect" parent="."]
@@ -63,27 +61,32 @@ grow_vertical = 2
 border_color = Color(0.0507812, 0.555054, 1, 1)
 border_width = 4.0
 
-[node name="Control" type="PanelContainer" parent="."]
+[node name="TaskBar" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -60.0
+offset_top = -43.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="TextureButton" type="TextureButton" parent="Control"]
-custom_minimum_size = Vector2(200, 60)
+[node name="HBoxContainer" type="HBoxContainer" parent="TaskBar"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture_normal = ExtResource("3_sugp2")
-texture_pressed = ExtResource("4_tbgi4")
-texture_hover = ExtResource("4_jyhfs")
-texture_focused = ExtResource("3_sugp2")
-ignore_texture_size = true
-stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="TaskBar/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="InfectionMeter" type="ProgressBar" parent="TaskBar/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 500.0
 
 [node name="DesktopItems" type="GridContainer" parent="."]
 layout_mode = 0

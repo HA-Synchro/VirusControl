@@ -3,11 +3,22 @@ extends Window
 @export var filesystem: FileSystem
 @export var grid_container: GridContainer
 @export var path_label: Label
+@export var sidebar_container: VBoxContainer
 var selected_file : String
-
 
 func _ready() -> void:
 	update_ui()
+	var shortcuts = filesystem.get_sidebar_shortcuts()
+
+	for path in shortcuts:
+		var button = Button.new()
+		button.text = path.back()  # Show only the last folder/drive name
+		button.tooltip_text = "/" + "/".join(path.slice(1, path.size()))  # Exclude "Drives"
+		button.connect("pressed", func():
+			filesystem.current_path = path.duplicate()
+			update_ui()
+		)
+		sidebar_container.add_child(button)
 
 func update_ui():
 	var folder = filesystem.get_current_folder()
@@ -32,9 +43,6 @@ func _on_close_requested() -> void:
 	tween.tween_property(self, "size", Vector2i.ZERO, 0.1)
 	await tween.finished
 	self.queue_free()
-
-func _on_home_pressed() -> void:
-	pass
 
 func _on_item_selected(_name) -> void:
 	var folder = filesystem.get_current_folder()
